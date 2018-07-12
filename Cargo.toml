@@ -1,0 +1,7 @@
+[package]
+name = "in-polygon"
+version = "0.1.0"
+authors = ["George Kaplan (george@georgekaplan.xyz)"]
+
+[dependencies]
+nalgebra = "0.15"
