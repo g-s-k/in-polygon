@@ -7,7 +7,7 @@ use std::f64::NAN;
 use std::f64::INFINITY as INF;
 use std::f64::NEG_INFINITY as N_INF;
 
-pub fn in_polygon(query_point: na::Vector2<f64>, bounds: Vec<na::Vector2<f64>>) -> bool {
+pub fn in_polygon(query_point: na::Point2<f64>, bounds: Vec<na::Point2<f64>>) -> bool {
     // the simplest metric of inclusion
     if !in_bbox(&query_point, &bounds) {
         return false;
@@ -17,7 +17,7 @@ pub fn in_polygon(query_point: na::Vector2<f64>, bounds: Vec<na::Vector2<f64>>) 
 }
 
 /// Get the bounding box of a slice of 2D points.
-fn get_bbox(points: &[na::Vector2<f64>]) -> [na::Vector2<f64>; 2] {
+fn get_bbox(points: &[na::Point2<f64>]) -> [na::Point2<f64>; 2] {
     // find bounds
     let min_x = points.iter().map(|e| e[0]).fold(NAN, f64::min);
     let max_x = points.iter().map(|e| e[0]).fold(NAN, f64::max);
@@ -26,13 +26,13 @@ fn get_bbox(points: &[na::Vector2<f64>]) -> [na::Vector2<f64>; 2] {
 
     // package them up
     [
-        na::Vector2::new(min_x, min_y),
-        na::Vector2::new(max_x, max_y)
+        na::Point2::new(min_x, min_y),
+        na::Point2::new(max_x, max_y)
     ]
 }
 
 /// Test if a point lies inside the bounding box of a collection of points.
-fn in_bbox(query_point: &na::Vector2<f64>, bounds: &[na::Vector2<f64>]) -> bool {
+fn in_bbox(query_point: &na::Point2<f64>, bounds: &[na::Point2<f64>]) -> bool {
     // find bounds
     let bbox = get_bbox(bounds);
 
@@ -56,12 +56,12 @@ mod tests {
     #[test]
     fn center_of_square() {
         let square_pts = vec![
-            na::Vector2::new(-1.0, 1.0),
-            na::Vector2::new(1.0, 1.0),
-            na::Vector2::new(1.0, -1.0),
-            na::Vector2::new(-1.0, -1.0),
+            na::Point2::new(-1.0, 1.0),
+            na::Point2::new(1.0, 1.0),
+            na::Point2::new(1.0, -1.0),
+            na::Point2::new(-1.0, -1.0),
         ];
-        let query_pt = na::Vector2::new(0.0, 0.0);
+        let query_pt = na::Point2::origin();
         assert_eq!(in_polygon(query_pt, square_pts), true);
     }
 }
