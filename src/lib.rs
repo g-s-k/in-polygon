@@ -8,7 +8,7 @@ use std::f64::consts::PI;
 use std::f64::INFINITY as INF;
 use std::f64::NEG_INFINITY as N_INF;
 
-pub fn in_polygon(query_point: na::Point2<f64>, bounds: Vec<na::Point2<f64>>) -> bool {
+pub fn in_polygon(query_point: na::Point2<f64>, bounds: &[na::Point2<f64>]) -> bool {
     // the simplest metric of inclusion
     if !in_bbox(&query_point, &bounds) {
         return false;
